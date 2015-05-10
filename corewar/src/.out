@@ -1,0 +1,16 @@
+void		fill_tab(t_vm *vm, int argc)
+{
+  int		size;
+  static int	j;
+  int		index;
+
+  index = (MEM_SIZE / argc) * j;
+  size = sizeof(header_t);
+  while (vm->champ[size] != '\0')
+    {
+      vm->memory[index] = vm->champ[size];
+      index++;
+      size++;
+    }
+  j++;
+}

@@ -1,0 +1,28 @@
+int		main(int argc, char **argv)
+{
+  t_core	*core;
+  int		p;
+  int		n;
+  int		fd;
+  int		fd_create;
+
+  p = 9;
+  n = 0;
+  if (argc != 2 || check_file(argv) != 0 ||
+      (core = malloc(sizeof(t_core)) + 5) == NULL ||
+      (core->cor = malloc(1000)) == NULL)
+    return (2);
+  while (argv[1][n] != '.')
+    {
+      core->cor[n] = argv[1][n];
+      n++;
+    }
+  if ((fd_create = open(my_strcat(core->cor, ".cor"),
+			O_CREAT | O_RDWR | O_TRUNC, 436)) < 0)
+    return (my_putstr_error("open error\n"));
+  if ((fd = open(argv[1], O_RDONLY)) < 0)
+    return (my_putstr_error("open error\n"));
+  my_putchar_fd(0x00, fd_create);
+  read_file(core, fd, p, fd_create);
+  return (0);
+}
